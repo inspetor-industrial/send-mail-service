@@ -3,7 +3,17 @@ import { swagger } from '@elysiajs/swagger'
 import { healthy } from './routes/healthy'
 import { sendMail } from './routes/send-mail'
 
+import { cors } from '@elysiajs/cors'
+import { getOrigin } from './utils'
+
 const app = new Elysia()
+  .use(
+    cors({
+      origin: getOrigin(),
+      methods: ['GET', 'POST'],
+      allowedHeaders: ['Content-Type', 'Authorization'],
+    }),
+  )
   .use(
     swagger({
       path: '/swagger',
